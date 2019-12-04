@@ -1,28 +1,30 @@
-// Testing Pure Functions
-
-// 🐨 import the function that we're testing
+import cases from 'jest-in-case'
 import {isPasswordAllowed} from '../auth'
 
-// 🐨 write tests for valid and invalid passwords
-// 💰 here are some you can use:
-//
-// valid:
-// - !aBc123
-test('valid password', ()=> {
-    expect(isPasswordAllowed('!aBc123')).toBe(true)
-})
+function toCases(testObjects) {
+    return Object.entries(testObjects).map(([name, value]) => ({
+        name: `${value} - ${name}`,
+        value,
+      }))
+}
 
-//
-// invalid:
-const badPasswords = ['a2c!', '123456!', 'ABCdef!', 'abc123!', 'ABC123!', 'ABCdef123']
-badPasswords.forEach(password => {
-    test(`invalid: ${password}`, ()=> {
-        expect(isPasswordAllowed(password)).toBe(false);
-    });
-});
-// - a2c! // too short
-// - 123456! // no alphabet characters
-// - ABCdef! // no numbers
-// - abc123! // no uppercase letters
-// - ABC123! // no lowercase letters
-// - ABCdef123 // no non-alphanumeric characters
+cases('isPasswordAllowed - valid passwords', 
+    ({value}) => {
+        expect(isPasswordAllowed(value)).toBe(true);
+    },
+    toCases({'Is valid': '!aBc123'})
+)
+
+cases('isPasswordAllowed - invalid passwords', 
+    ({value}) => {
+        expect(isPasswordAllowed(value)).toBe(false);
+    },
+    toCases({
+        'Too short': 'a2c!',
+        'No alphabet characters': '123456!',
+        'No numbers': 'ABCdef!',
+        'No uppercase letters': 'abc123!',
+        'No lowercase letters': 'ABC123!',
+        'no non-alphanumeric characters': 'ABCdef123'
+    })
+)
