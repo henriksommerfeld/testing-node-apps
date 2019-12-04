@@ -25,6 +25,6 @@ cases('isPasswordAllowed - invalid passwords',
         'No numbers': 'ABCdef!',
         'No uppercase letters': 'abc123!',
         'No lowercase letters': 'ABC123!',
-        'no non-alphanumeric characters': 'ABCdef123'
+        'No non-alphanumeric characters': 'ABCdef123'
     })
 )
