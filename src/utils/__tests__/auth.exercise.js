@@ -10,14 +10,13 @@ import {isPasswordAllowed} from '../auth'
 // - !aBc123
 test('valid password', ()=> {
     expect(isPasswordAllowed('!aBc123')).toBe(true)
- })
+})
 
 //
 // invalid:
 const badPasswords = ['a2c!', '123456!', 'ABCdef!', 'abc123!', 'ABC123!', 'ABCdef123']
-test('invalid passwords', ()=> {
-    expect.assertions(badPasswords.length);
-    badPasswords.forEach(password => {
+badPasswords.forEach(password => {
+    test(`invalid: ${password}`, ()=> {
         expect(isPasswordAllowed(password)).toBe(false);
     });
 });
