@@ -1,18 +1,26 @@
 // Testing Pure Functions
 
-// 💣 remove this todo test (it's only here so you don't get an error about missing tests)
-test.todo('remove me')
-
 // 🐨 import the function that we're testing
-// 💰 import {isPasswordAllowed} from '../auth'
+import {isPasswordAllowed} from '../auth'
 
 // 🐨 write tests for valid and invalid passwords
 // 💰 here are some you can use:
 //
 // valid:
 // - !aBc123
+test('valid password', ()=> {
+    expect(isPasswordAllowed('!aBc123')).toBe(true)
+ })
+
 //
 // invalid:
+const badPasswords = ['a2c!', '123456!', 'ABCdef!', 'abc123!', 'ABC123!', 'ABCdef123']
+test('invalid passwords', ()=> {
+    expect.assertions(badPasswords.length);
+    badPasswords.forEach(password => {
+        expect(isPasswordAllowed(password)).toBe(false);
+    });
+});
 // - a2c! // too short
 // - 123456! // no alphabet characters
 // - ABCdef! // no numbers
